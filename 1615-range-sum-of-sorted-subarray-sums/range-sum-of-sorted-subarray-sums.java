@@ -1,0 +1,23 @@
+class Solution {
+    public int rangeSum(int[] nums, int n, int left, int right) {
+        int res = 0;
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++)
+        {
+            list.add(nums[i]);
+            int sum = nums[i];
+            for(int j = i + 1; j < nums.length; j++)
+            {
+                sum += nums[j];
+                list.add(sum);
+            }
+        }
+        Collections.sort(list);
+        for(int i = left - 1; i < right; i++)
+        {
+            res += list.get(i);
+            res %= ((int)Math.pow(10, 9) + 7);
+        }
+        return res;
+    }
+}
