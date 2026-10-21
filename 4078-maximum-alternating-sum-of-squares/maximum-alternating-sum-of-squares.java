@@ -1,30 +1,18 @@
 class Solution {
     public long maxAlternatingSum(int[] nums) {
-        // Sort primitive int array by absolute value
-        nums = java.util.Arrays.stream(nums)
-                    .boxed()
-                    .sorted((a, b) -> Integer.compare(Math.abs(a), Math.abs(b)))
-                    .mapToInt(i -> i)
-                    .toArray();
-        long sum = 0;
-        int i = 0, j = nums.length - 1;
-        boolean add = true;
-        while(i <= j)
+        for(int i = 0; i < nums.length; i++)
         {
-            if(add)
-            {
-                sum += (long)(nums[j] * nums[j]);
-                j--;
-            }
+            nums[i] = nums[i] * nums[i];
+        }
+        Arrays.sort(nums);
+        long sum = 0;
+        int mid = nums.length / 2;
+        for(int i = 0; i < nums.length; i++)
+        {
+            if(i < mid)
+                sum -= nums[i];
             else
-            {
-                sum -= (long)(nums[i] * nums[i]);
-                i++;
-            }
-            if(add)
-                add = false;
-            else
-                add = true;
+                sum += nums[i];
         }
         return sum;
     }
